@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch  } from "react-redux";
 import { remove, plus, minus } from "../store/cartSlice"
@@ -7,6 +7,10 @@ import { showToast } from "../store/toastSlice";
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems])
 
   const  removeFromCart = (itemId) => {
       dispatch(remove(itemId));
